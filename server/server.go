@@ -64,5 +64,3 @@ func (s *Server) Stop() error {
 	}
 	return nil
 }
-
-func (s *Server) setupRoutes() {}
