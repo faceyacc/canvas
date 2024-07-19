@@ -15,6 +15,7 @@ func CreateServer() func() {
 		Port: 8081,
 	})
 
+	// start the server
 	go func() {
 		if err := s.Start(); err != nil {
 			panic(err)
@@ -29,6 +30,7 @@ func CreateServer() func() {
 		time.Sleep(5 * time.Millisecond)
 	}
 
+	// stop server
 	return func() {
 		if err := s.Stop(); err != nil {
 			panic(err)
