@@ -6,4 +6,5 @@ import "deeler/handlers"
 func (s *Server) setupRoutes() {
 	// Register routes
 	handlers.Health(s.mux)
+	handlers.FrontPage(s.mux)
 }

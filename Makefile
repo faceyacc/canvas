@@ -1,7 +1,7 @@
 .PHONY: cover start test test-integration
 
 # get newest image to deploy
-export image := `aws lightsail get-container-images --service-name canvas --label canvas | jq -r '.containerImages[0].image'`
+export image := `aws lightsail get-container-images --service-name deeler --label deeler | jq -r '.containerImages[0].image'`
 
 build:
 	docker build -t canvas .
