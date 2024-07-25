@@ -24,6 +24,7 @@ func Page(title, path string, body ...g.Node) g.Node {
 	})
 }
 
+// Navigational bar with a link to the home page. Sits at the top if all pages.
 func Navbar(path string) g.Node {
 	return Nav(Class("bg-white shadow"),
 		Container(false,
@@ -46,6 +47,7 @@ func NavbarLink(path, text, currentPath string) g.Node {
 	)
 }
 
+// Custom container with default padding.
 func Container(padY bool, children ...g.Node) g.Node {
 	return Div(
 		c.Classes{
@@ -56,6 +58,7 @@ func Container(padY bool, children ...g.Node) g.Node {
 	)
 }
 
+// Renders content such as text images, and links with a consistent style.
 func Prose(children ...g.Node) g.Node {
 	return Div(Class("prose lg:prose-lg xl:prose-xl prose-indigo"), g.Group(children))
 }
