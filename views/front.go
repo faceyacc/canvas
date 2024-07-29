@@ -17,9 +17,6 @@ func FrontPage() g.Node {
 		H2(g.Text("Ready to takeoff?")),
 		P(g.Text("Signup for our newsletter below.")),
 
-		H2(g.Text(`Do you want to know more?`)),
-		P(g.Text(`Sign up to our newsletter below.`)),
-
 		FormEl(Action("/newsletter/signup"), Method("post"), Class("flex items-center max-w-md"),
 			Label(For("email"), Class("sr-only"), g.Text("Email")),
 			Div(Class("relative rounded-md shadow-sm flex-grow"),

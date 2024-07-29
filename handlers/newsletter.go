@@ -31,6 +31,7 @@ func NewsletterSignup(mux chi.Router, s signup) {
 	})
 }
 
+// Handler to serve Thank You page
 func NewsletterThankYou(mux chi.Router) {
 	mux.Get("/newsletter/thankyou", func(w http.ResponseWriter, r *http.Request) {
 		_ = views.NewsletterThankYouPage("/newsletter/thanks").Render(w)
