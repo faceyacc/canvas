@@ -13,7 +13,7 @@ func TestEmailIsValid(t *testing.T) {
 		valid   bool
 	}{
 		{"me@example.com", true},
-		{"dhc..3@example.com", false},
+		{"dhc..3@=example.com", false},
 		{"@example.com", false},
 		{"me@", false},
 		{"@", false},

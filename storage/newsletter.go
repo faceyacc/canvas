@@ -8,7 +8,7 @@ import (
 )
 
 // SignupForNewsletter with the given email. Returns a unique token for the user to confirm their email address.
-func (d *Database) SingupForNewsletter(ctx context.Context, email model.Email) (string, error) {
+func (d *Database) SignupForNewsletter(ctx context.Context, email model.Email) (string, error) {
 	token, err := createSecretToken()
 	if err != nil {
 		return "", err

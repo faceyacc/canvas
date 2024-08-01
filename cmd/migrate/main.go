@@ -16,7 +16,7 @@ func main() {
 	os.Exit(start())
 }
 
-// Utility function to apply migrations.
+// Utility function that connects to the database and apply migrations.
 func start() int {
 	_ = env.Load(".env")
 
@@ -37,6 +37,7 @@ func start() int {
 		return 1
 	}
 
+	// Initiate a new database connection.
 	db := storage.NewDatabase(storage.NewDatabaseOptions{
 		Host:     env.GetStringOrDefault("DB_HOST", "localhost"),
 		Port:     env.GetIntOrDefault("DB_PORT", 5432),
