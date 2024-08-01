@@ -5,12 +5,15 @@ package main
 import (
 	"context"
 	"deeler/server"
+	"deeler/storage"
 	"fmt"
 	"os"
 	"os/signal"
 	"strconv"
 	"syscall"
+	"time"
 
+	"github.com/maragudk/env"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 )
@@ -23,6 +26,8 @@ func main() {
 }
 
 func start() int {
+	_ = env.Load()
+
 	logEnv := getStringOrDefault("LOG_ENV", "development") // look for LOG_ENV in the environment, default to "development"
 	log, err := createLogger(logEnv)
 	if err != nil {
@@ -40,9 +45,10 @@ func start() int {
 
 	// Create a server instance.
 	s := server.New(server.Options{
-		Host: host,
-		Port: port,
-		Log:  log,
+		Database: createDatabase(log),
+		Host:     host,
+		Port:     port,
+		Log:      log,
 	})
 
 	// Return context if singal terminated or singal interrupt is received or.
@@ -108,4 +114,18 @@ func getStringOrDefault(name, defaultV string) string {
 		return defaultV
 	}
 	return v
+}
+
+func createDatabase(log *zap.Logger) *storage.Database {
+	return storage.NewDatabase(storage.NewDatabaseOptions{
+		Host:                  env.GetStringOrDefault("DB_HOST", "localhost"),
+		Port:                  env.GetIntOrDefault("DB_PORT", 5432),
+		User:                  env.GetStringOrDefault("DB_USER", ""),
+		Password:              env.GetStringOrDefault("DB_PASSWORD", ""),
+		Name:                  env.GetStringOrDefault("DB_NAME", ""),
+		MaxOpenConnections:    env.GetIntOrDefault("DB_MAX_OPEN_CONNECTIONS", 10),
+		MaxIdleConnections:    env.GetIntOrDefault("DB_MAX_IDLE_CONNECTIONS", 10),
+		ConnectionMaxLifetime: env.GetDurationOrDefault("DB_CONNECTION_MAX_LIFETIME", time.Hour),
+		Log:                   log,
+	})
 }

@@ -9,9 +9,9 @@ import (
 // setupRoutes registers the routes for the server.
 func (s *Server) setupRoutes() {
 	// Register routes
-	handlers.Health(s.mux)
+	handlers.Health(s.mux, s.database)
 	handlers.FrontPage(s.mux)
-	handlers.NewsletterSignup(s.mux, &signupMock{})
+	handlers.NewsletterSignup(s.mux, s.database)
 	handlers.NewsletterThankYou(s.mux)
 }
 

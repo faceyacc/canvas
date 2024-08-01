@@ -3,13 +3,19 @@
 # get newest image to deploy
 export image := `aws lightsail get-container-images --service-name deeler --label deeler | jq -r '.containerImages[0].image'`
 
+migrate-up:
+	go run ./cmd/migrate up
+
+migrate-down:
+	go run ./cmd/migrate down
+
 build:
 	docker build -t canvas .
 
 cover:
 	go tool cover -html=cover.out
 
-start:
+start: migrate-up
 	go run cmd/server/*.go
 
 test:

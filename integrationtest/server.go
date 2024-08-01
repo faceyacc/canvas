@@ -10,9 +10,11 @@ import (
 // CreateServer tests server on port 8081, returning a cleanup function
 // stops the server.
 func CreateServer() func() {
+	db, cleanupDB := CreateDatabase()
 	s := server.New(server.Options{
-		Host: "localhost",
-		Port: 8081,
+		Host:     "localhost",
+		Port:     8081,
+		Database: db,
 	})
 
 	// start the server
@@ -35,6 +37,7 @@ func CreateServer() func() {
 		if err := s.Stop(); err != nil {
 			panic(err)
 		}
+		cleanupDB()
 	}
 }
 
