@@ -29,8 +29,8 @@ func CreateDatabase() (*storage.Database, func()) {
 	name := env.GetStringOrDefault("DB_NAME", "test")
 	dropConnections(db.DB, name)
 
-	db.DB.MustExec("drop database if exists" + name)
-	db.DB.MustExec("create database " + name)
+	db.DB.MustExec(`drop database if exists ` + name)
+	db.DB.MustExec(`create database ` + name)
 
 	return connect(name)
 
